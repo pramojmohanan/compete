@@ -18,7 +18,7 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <h1 className="sidebar-title">Tools <span className="version">v1.0</span></h1>
+        <h1 className="sidebar-title">Tools <span className="version">v1.1</span></h1>
       </div>
 
       <nav className="sidebar-nav">

@@ -81,400 +81,86 @@ export const unbrandingScripts: Record<string, string> = {
 ExecuteScript();`,
   chatgpt: `function ExecuteScript() {
 
-  const selectorGroups = [
-
-    {
-"name": "Sidebar Container",
-"selectors": [
-
-        { "selector": "#stage-slideover-sidebar", "multiple": false },
-
-        { "selector": "div[id*='stage-sidebar']", "multiple": true },
-
-        { "selector": "div.border-token-border-light.relative.z-21", "multiple": false }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Sidebar Rail/Tiny Bar",
-"selectors": [
-
-        { "selector": "#stage-sidebar-tiny-bar", "multiple": false },
-
-        { "selector": "div[class*='tiny-bar']", "multiple": false }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Message Actions Container",
-"selectors": [
-
-        { "selector": "div[class*='z-0'][class*='flex'][class*='min-h'][class*='justify-start']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Good/Bad Response Buttons",
-"selectors": [
-
-        { "selector": "button[data-testid='good-response-turn-action-button']", "multiple": true },
-
-        { "selector": "button[data-testid='bad-response-turn-action-button']", "multiple": true },
-
-        { "selector": "button[aria-label='Good response']", "multiple": true },
-
-        { "selector": "button[aria-label='Bad response']", "multiple": true }
-
-      ],
-"removeParent": false
-
-    },
-
-    {
-"name": "Message Share Button",
-"selectors": [
-
-        { "selector": "button[aria-label='Share']", "multiple": true },
-
-        { "selector": "button[data-state='closed'][aria-label='Share']", "multiple": true }
-
-      ],
-"removeParent": false
-
-    },
-
-    {
-"name": "More Actions Button",
-"selectors": [
-
-        { "selector": "button[aria-label='More actions']", "multiple": true },
-
-        { "selector": "button[type='button'][aria-label='More actions']", "multiple": true }
-
-      ],
-"removeParent": false
-
-    },
-
-    {
-"name": "Chat History Section",
-"selectors": [
-
-        { "selector": "div#history", "multiple": false }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Create New Chat Button",
-"selectors": [
-
-        { "selector": "button[data-testid='create-new-chat-button']", "multiple": true },
-
-        { "selector": "a[data-testid='create-new-chat-button']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Search Chats",
-"selectors": [
-
-        { "selector": "input[placeholder*='Search']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Library/Images Button",
-"selectors": [
-
-        { "selector": "a[data-testid='sidebar-item-library']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "GPTs Section",
-"selectors": [
-
-        { "selector": "div[class*='sidebar-expando-section']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Apps Button",
-"selectors": [
-
-        { "selector": "a[data-testid='apps-button']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Projects Button",
-"selectors": [
-
-        { "selector": "a[href='/projects']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Explore GPTs Button",
-"selectors": [
-
-        { "selector": "a[data-testid='explore-gpts-button']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Profile Button",
-"selectors": [
-
-        { "selector": "button[data-testid='accounts-profile-button']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Scroll to Bottom Button",
-"selectors": [
-
-        { "selector": "button[class*='scroll-to']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "History Item Options",
-"selectors": [
-
-        { "selector": "button[data-testid*='history-item-options']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Composer Plus Button",
-"selectors": [
-
-        { "selector": "button[data-testid='composer-plus-btn']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Voice/Dictate Buttons",
-"selectors": [
-
-        { "selector": "button[aria-label='Dictate button']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Disclaimer",
-"selectors": [
-
-        { "selector": "div[class*='Cookie Preferences']", "multiple": true }
-
-      ],
-"removeParent": true
-
-    },
-
-    {
-"name": "Background Styling",
-"selectors": [
-
-        { "selector": "body", "multiple": false }
-
-      ],
-"removeParent": false,
-"style": {
-
-        "backgroundColor": "#ffffff"
-
-      }
-
-    }
-
-  ];
-
-  // Core logic to apply styles or remove elements
-
-  selectorGroups.forEach((group) => {
-
-    group.selectors.forEach((item) => {
-
-      if (!item) return;
-
-      const hasStyle = !!group.style;
-
-      const applyStyles = (el) => {
-
-        if (hasStyle) {
-
-          const { parent, ...ownStyles } = group.style;
-
-          Object.entries(ownStyles).forEach(([key, value]) => {
-
-            el.style[key] = value;
-
-          });
-
-          if (parent && el.parentElement) {
-
-            Object.entries(parent).forEach(([key, value]) => {
-
-              el.parentElement.style[key] = value;
-
-            });
-
-          }
-
-        }
-
-      };
-
-      if (item.multiple) {
-
-        const elements = document.querySelectorAll(item.selector);
-
-        console.log(\`Found \${elements.length} elements for: \${item.selector}\`);
-
-        elements.forEach((el) => {
-
-          if (hasStyle) {
-
-            applyStyles(el);
-
-          } else if (group.removeParent && el.parentElement) {
-
-            el.parentElement.remove();
-
-          } else {
-
-            el.remove();
-
-          }
-
-        });
-
-      } else {
-
-        const el = document.querySelector(item.selector);
-
-        if (!el) {
-
-          console.log(\`No element found for: \${item.selector}\`);
-
-          return;
-
-        }
-
-        if (hasStyle) {
-
-          applyStyles(el);
-
-        } else if (group.removeParent && el.parentElement) {
-
-          el.parentElement.remove();
-
-        } else {
-
-          el.remove();
-
-        }
-
-      }
-
-    });
-
+  // Keep only chat thread content - remove EVERYTHING else
+  
+  // Remove entire sidebar
+  const sidebar = document.querySelector("#stage-slideover-sidebar");
+  if (sidebar) sidebar.remove();
+  
+  // Remove sidebar rail
+  const rail = document.querySelector("#stage-sidebar-tiny-bar");
+  if (rail) rail.remove();
+  
+  // Remove header
+  const header = document.querySelector("header");
+  if (header) header.remove();
+  
+  // Remove all buttons and action containers (except those in messages)
+  document.querySelectorAll("button[data-testid*='turn-action']").forEach(el => el.remove());
+  document.querySelectorAll("button[aria-label='Share']").forEach(el => el.remove());
+  document.querySelectorAll("button[aria-label='More actions']").forEach(el => el.remove());
+  document.querySelectorAll("button[data-testid='composer-plus-btn']").forEach(el => el.remove());
+  document.querySelectorAll("button[aria-label='Dictate button']").forEach(el => el.remove());
+  document.querySelectorAll("button[class*='scroll-to']").forEach(el => el.remove());
+  
+  // Remove scroll to bottom button container
+  document.querySelectorAll("div.sticky.bottom-0.group\\\\/thread-bottom-container").forEach(el => {
+    const scrollBtn = el.querySelector("button");
+    if (scrollBtn) scrollBtn.remove();
   });
-
-  // Remove empty <div>s
-
+  
+  // Remove disclaimer
+  document.querySelectorAll("div[class*='Cookie']").forEach(el => el.remove());
+  document.querySelectorAll("div.-mt-4.text-token-text-secondary").forEach(el => el.remove());
+  
+  // Remove all nav elements
+  document.querySelectorAll("nav").forEach(el => el.remove());
+  document.querySelectorAll("aside").forEach(el => el.remove());
+  
+  // Remove message action containers (the flex containers with ratings)
+  document.querySelectorAll("div.z-0.flex.min-h-\\\\[46px\\\\]").forEach(el => el.remove());
+  document.querySelectorAll("div[class*='z-0'][class*='justify-start']").forEach(el => {
+    if (el.querySelectorAll("button[data-testid*='action']").length > 0) {
+      el.remove();
+    }
+  });
+  
+  // Keep chat thread - this is the main content
+  const threadContainer = document.querySelector("div[id='thread-bottom']");
+  if (threadContainer) {
+    threadContainer.style.maxWidth = "100%";
+    threadContainer.style.margin = "0";
+  }
+  
+  // Remove composer footer area but keep messages
+  document.querySelectorAll("div#thread-bottom-container").forEach(el => {
+    const composer = el.querySelector("form");
+    if (composer) composer.remove();
+  });
+  
+  // Clean up empty divs
   let removed;
-
   let iterations = 0;
-
   do {
-
     removed = false;
-
     const allDivs = document.querySelectorAll("div");
-
     allDivs.forEach((div) => {
-
       const isEmpty = [...div.childNodes].every((node) => {
-
         return (
-
           (node.nodeType === Node.TEXT_NODE && node.textContent.trim() === "") ||
-
           node.nodeType === Node.COMMENT_NODE
-
         );
-
       });
-
-      if (isEmpty) {
-
+      if (isEmpty && !div.id && !div.className.includes("thread")) {
         div.remove();
-
         removed = true;
-
       }
-
     });
-
     iterations++;
-
-    if (iterations > 100) break; // Safety limit
-
+    if (iterations > 100) break;
   } while (removed);
-
-  console.log("Cleanup complete");
-
+  
+  console.log("Chat view cleaned - keeping only response divs");
   return "Cleanup complete";
 
 }
