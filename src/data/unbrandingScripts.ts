@@ -299,6 +299,21 @@ ExecuteScript();`,
     },
 
     {
+"name": "Scroll to Bottom Button",
+"selectors": [
+
+        { "selector": "button[data-testid='scroll-to-bottom-button']", "multiple": true },
+
+        { "selector": "div.pointer-events-none.absolute.flex.justify-center", "multiple": true },
+
+        { "selector": "button[title='Scroll to bottom']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
 "name": "User Messages Background",
 "selectors": [
 
