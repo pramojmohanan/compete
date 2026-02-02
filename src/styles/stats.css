@@ -1,0 +1,47 @@
+.stats-container {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #2c3e50;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.stat-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: #3498db;
+  font-size: 16px;
+}
+
+.stat-unit {
+  color: #7f8c8d;
+  font-size: 12px;
+}
+
+.reduction-value {
+  color: #10b981;
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    gap: 15px;
+  }
+
+  .stat-item {
+    flex: 1 1 calc(50% - 7.5px);
+  }
+}

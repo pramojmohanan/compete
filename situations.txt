@@ -1,0 +1,20 @@
+const fs = require("fs");
+const { JSDOM } = require("jsdom");
+const inputPath = process.argv[2];
+const outputPath = process.argv[3] || "output.md";
+// Read the HTML file
+const htmlContent = fs.readFileSync(inputPath, "utf-8");
+const dom = new JSDOM(htmlContent);
+const document = dom.window.document;
+// Extract all <a> elements
+const anchors = document.querySelectorAll("a");
+// Collect titles and links
+const links = Array.from(anchors).map((a) => {
+  const href = a.href;
+  const titleDiv = a.querySelector('div:nth-of-type(2)');
+  const title = titleDiv ? titleDiv.textContent.replace('/\n/', '').replace('/\t/', '').trim() : "No Title";
+  return `[${title}](${href})`;
+});
+// Write to markdown file
+fs.writeFileSync(outputPath, links.join("##NEWLINE##"), "utf-8");
+console.log("Markdown file created as output.md");

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Convert to Single Line</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <style>
+    textarea#inputText {
+      height: 40vh; /* 40% of viewport height */
+      resize: vertical;
+    }
+    .btn-convert {
+      width: 100%;
+      font-size: 1.2rem;
+      padding: 0.75rem;
+    }
+    #outputContainer {
+      display: none; /* shown after conversion */
+    }
+    #outputText {
+      cursor: text;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <h2 class="mb-4 text-center">Convert Multiline Text to Single Line</h2>
+
+    <div class="mb-3">
+      <label for="inputText" class="form-label fw-semibold">Input (Multiline)</label>
+      <textarea
+        id="inputText"
+        class="form-control"
+        placeholder="Paste or type your multiline text here..."
+      ></textarea>
+    </div>
+
+    <div class="d-grid mb-4">
+      <button id="convertBtn" class="btn btn-primary btn-convert">
+        Convert to Single Line
+      </button>
+    </div>
+
+    <div id="outputContainer" class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <label for="outputText" class="form-label fw-semibold mb-0">Output (Single Line)</label>
+          <button id="copyBtn" class="btn btn-sm btn-outline-secondary">
+            Copy
+          </button>
+        </div>
+        <textarea
+          id="outputText"
+          class="form-control"
+          rows="3"
+          readonly
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toSingleLine(str) {
+      return str
+        .replace(/\t/g, "##TAB##")        // Replace tabs
+        .replace(/\n/g, "##NEWLINE##")    // Replace newlines
+        .replace(/\r/g, "")               // Remove carriage returns (Windows line endings)
+        .trim();
+    }
+
+    const inputText = document.getElementById("inputText");
+    const convertBtn = document.getElementById("convertBtn");
+    const outputContainer = document.getElementById("outputContainer");
+    const outputText = document.getElementById("outputText");
+    const copyBtn = document.getElementById("copyBtn");
+
+    convertBtn.addEventListener("click", () => {
+      const input = inputText.value || "";
+      const singleLine = toSingleLine(input);
+      outputText.value = singleLine;
+      outputContainer.style.display = "block";
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      const text = outputText.value;
+      if (!text) return;
+
+      // Try modern clipboard API first
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+          return;
+        } catch (e) {
+          // Fall back to older method below
+        }
+      }
+
+      // Fallback: execCommand
+      outputText.removeAttribute("readonly");
+      outputText.select();
+      outputText.setSelectionRange(0, text.length);
+      document.execCommand("copy");
+      outputText.setAttribute("readonly", "readonly");
+      window.getSelection().removeAllRanges();
+
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+    });
+  </script>
+</body>
+</html>
