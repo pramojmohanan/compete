@@ -84,19 +84,14 @@ ExecuteScript();`,
   const selectorGroups = [
 
     {
-"name": "header",
-"selectors": [{ "selector": "main div.sticky div.absolute", "multiple": false }],
-"removeParent": true
-
-    },
-
-    {
-"name": "Share Button",
+"name": "Sidebar Container",
 "selectors": [
 
-        { "selector": "button[title='Share message and prompt']", "multiple": true },
+        { "selector": "#stage-slideover-sidebar", "multiple": false },
 
-        { "selector": "button[title='Settings']", "multiple": false }
+        { "selector": "div[id*='stage-sidebar']", "multiple": true },
+
+        { "selector": "div.border-token-border-light.relative.z-21", "multiple": false }
 
       ],
 "removeParent": true
@@ -104,181 +99,245 @@ ExecuteScript();`,
     },
 
     {
-"name": "startChatButtons",
+"name": "Sidebar Rail/Tiny Bar",
 "selectors": [
 
-        { "selector": "button[title='Open Sidebar']", "multiple": false },
+        { "selector": "#stage-sidebar-tiny-bar", "multiple": false },
 
-        { "selector": "button[title='Start new chat']", "multiple": false },
-
-        { "selector": "button[title='Open actions menu']", "multiple": false }
+        { "selector": "div[class*='tiny-bar']", "multiple": false }
 
       ],
-"removeParent": false
-
-    },
-
-    {
-"name": "responseButtonsContainer",
-"selectors": [{ "selector": ".flex.flex-col.items-end.gap-3.pb-8 button", "multiple": false }],
-"removeParent": false
-
-    },
-
-    {
-"name": "exampleQuestionButton",
-"selectors": [
-
-    {
-"selector": "button[class*='text-start'][class*='text-sm'][class*='dark:border-white']",
-"multiple": true
-
-    }
-
-  ],
-"removeParent": false
-
-},
-
-{
-"name": "scrollToTopButton",
-"selectors": [
-
-    {
-"selector": "span.relative.rounded-full.bg-white\\\\/40",
-"multiple": true
-
-    }
-
-  ],
 "removeParent": true
 
-  },
-
-    {
-"name": "searchBox",
-"selectors": [{ "selector": "div[data-testid=composer]", "multiple": false }],
-"removeParent": false
-
     },
 
     {
-"name": "bgGradient",
-"selectors": [{ "selector": "main div.absolute div.bg-gradient-chat-light", "multiple": false }],
-"removeParent": false
-
-    },
-
-    {
-"name": "todaySeparator",
-"selectors": [{ "selector": "main div[data-testid=chat-page] div.items-center", "multiple": false }],
-"removeParent": false
-
-    },
-
-    {
-"name": "ratingsControls",
-"selectors": [{ "selector": "main div.ease-in-out", "multiple": false }],
-"removeParent": false
-
-    },
-
-    {
-"name": "greyElements",
+"name": "Message Actions Container",
 "selectors": [
 
-        {
-"selector": "div[data-content=user-message] div, button[aria-label*=Citation], a span.inline-block, table tr th, code.font-mono",
-"multiple": true
+        { "selector": "div[class*='z-0'][class*='flex'][class*='min-h'][class*='justify-start']", "multiple": true }
 
-        }
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Good/Bad Response Buttons",
+"selectors": [
+
+        { "selector": "button[data-testid='good-response-turn-action-button']", "multiple": true },
+
+        { "selector": "button[data-testid='bad-response-turn-action-button']", "multiple": true },
+
+        { "selector": "button[aria-label='Good response']", "multiple": true },
+
+        { "selector": "button[aria-label='Bad response']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Message Share Button",
+"selectors": [
+
+        { "selector": "button[aria-label='Share']", "multiple": true },
+
+        { "selector": "button[data-state='closed'][aria-label='Share']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "More Actions Button",
+"selectors": [
+
+        { "selector": "button[aria-label='More actions']", "multiple": true },
+
+        { "selector": "button[type='button'][aria-label='More actions']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Chat History Section",
+"selectors": [
+
+        { "selector": "div#history", "multiple": false }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Create New Chat Button",
+"selectors": [
+
+        { "selector": "button[data-testid='create-new-chat-button']", "multiple": true },
+
+        { "selector": "a[data-testid='create-new-chat-button']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Search Chats",
+"selectors": [
+
+        { "selector": "input[placeholder*='Search']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Library/Images Button",
+"selectors": [
+
+        { "selector": "a[data-testid='sidebar-item-library']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "GPTs Section",
+"selectors": [
+
+        { "selector": "div[class*='sidebar-expando-section']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Apps Button",
+"selectors": [
+
+        { "selector": "a[data-testid='apps-button']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Projects Button",
+"selectors": [
+
+        { "selector": "a[href='/projects']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Explore GPTs Button",
+"selectors": [
+
+        { "selector": "a[data-testid='explore-gpts-button']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Profile Button",
+"selectors": [
+
+        { "selector": "button[data-testid='accounts-profile-button']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Scroll to Bottom Button",
+"selectors": [
+
+        { "selector": "button[class*='scroll-to']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "History Item Options",
+"selectors": [
+
+        { "selector": "button[data-testid*='history-item-options']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Composer Plus Button",
+"selectors": [
+
+        { "selector": "button[data-testid='composer-plus-btn']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Voice/Dictate Buttons",
+"selectors": [
+
+        { "selector": "button[aria-label='Dictate button']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Disclaimer",
+"selectors": [
+
+        { "selector": "div[class*='Cookie Preferences']", "multiple": true }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Background Styling",
+"selectors": [
+
+        { "selector": "body", "multiple": false }
 
       ],
 "removeParent": false,
 "style": {
-"backgroundColor": "#E9E9E9"
 
-      }
-
-    },
-
-    {
-"name": "backgroundElements",
-"selectors": [
-
-        { "selector": "div[data-testid=chat-page]", "multiple": false },
-
-        { "selector": "div.sticky > div.absolute", "multiple": false }
-
-      ],
-"removeParent": false,
-"style": {
-"backgroundColor": "#fff"
-
-      }
-
-    },
-
-    {
-"name": "tableBorders",
-"selectors": [
-
-        { "selector": "table tr th", "multiple": true },
-
-        { "selector": "table tr td", "multiple": true }
-
-      ],
-"removeParent": false,
-"style": {
-"borderColor": "#E0E0E0"
-
-      }
-
-    },
-
-    {
-"name": "showMoreButton",
-"selectors": [
-
-        { "selector": "button[title*='Show'][title*='more citations']", "multiple": false }
-
-      ],
-"removeParent": false
-
-    },
-
-    {
-"name": "citationLinksModal",
-"selectors": [{ "selector": "div[data-copy='false'] a", "multiple": true }],
-"removeParent": false
-
-    },
-
-    {
-"name": "aiMessageContainerParentPadding",
-"selectors": [
-
-        {
-"selector": "div[data-tabster*='groupper'][data-content='ai-message']",
-"multiple": false
-
-        }
-
-      ],
-"removeParent": false,
-"style": {
-"parent": {
-"padding": "0"
-
-        }
+        "backgroundColor": "#ffffff"
 
       }
 
     }
 
   ];
-
-
 
   // Core logic to apply styles or remove elements
 
@@ -288,11 +347,7 @@ ExecuteScript();`,
 
       if (!item) return;
 
-
-
       const hasStyle = !!group.style;
-
-
 
       const applyStyles = (el) => {
 
@@ -305,8 +360,6 @@ ExecuteScript();`,
             el.style[key] = value;
 
           });
-
-
 
           if (parent && el.parentElement) {
 
@@ -322,11 +375,11 @@ ExecuteScript();`,
 
       };
 
-
-
       if (item.multiple) {
 
         const elements = document.querySelectorAll(item.selector);
+
+        console.log(\`Found \${elements.length} elements for: \${item.selector}\`);
 
         elements.forEach((el) => {
 
@@ -334,9 +387,9 @@ ExecuteScript();`,
 
             applyStyles(el);
 
-          } else if (group.removeParent) {
+          } else if (group.removeParent && el.parentElement) {
 
-            el.parentElement?.remove();
+            el.parentElement.remove();
 
           } else {
 
@@ -350,17 +403,21 @@ ExecuteScript();`,
 
         const el = document.querySelector(item.selector);
 
-        if (!el) return;
+        if (!el) {
 
+          console.log(\`No element found for: \${item.selector}\`);
 
+          return;
+
+        }
 
         if (hasStyle) {
 
           applyStyles(el);
 
-        } else if (group.removeParent) {
+        } else if (group.removeParent && el.parentElement) {
 
-          el.parentElement?.remove();
+          el.parentElement.remove();
 
         } else {
 
@@ -374,11 +431,11 @@ ExecuteScript();`,
 
   });
 
-
-
   // Remove empty <div>s
 
   let removed;
+
+  let iterations = 0;
 
   do {
 
@@ -400,8 +457,6 @@ ExecuteScript();`,
 
       });
 
-
-
       if (isEmpty) {
 
         div.remove();
@@ -412,9 +467,13 @@ ExecuteScript();`,
 
     });
 
+    iterations++;
+
+    if (iterations > 100) break; // Safety limit
+
   } while (removed);
 
-
+  console.log("Cleanup complete");
 
   return "Cleanup complete";
 

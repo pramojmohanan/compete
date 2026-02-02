@@ -17,10 +17,22 @@ function extractCitations(dom: Document): string[] {
     if (!href) return;
 
     // Try to get title from div:nth-of-type(2), fallback to link text
+    let title = '';
     const titleDiv = a.querySelector('div:nth-of-type(2)');
-    const title = titleDiv
-      ? titleDiv.textContent?.replace(/\n/g, '').replace(/\t/g, '').trim() || 'No Title'
-      : a.textContent?.trim() || 'No Title';
+    if (titleDiv) {
+      title = titleDiv.textContent?.replace(/\n/g, '').replace(/\t/g, '').trim() || '';
+    }
+    
+    // If no title found or it looks like a number+domain, extract domain from URL
+    if (!title || /^\[\d+/.test(title)) {
+      try {
+        const url = new URL(href);
+        // Get domain without www.
+        title = url.hostname.replace('www.', '');
+      } catch {
+        title = a.textContent?.trim() || 'No Title';
+      }
+    }
 
     links.push(`[${title}](${href})`);
   });

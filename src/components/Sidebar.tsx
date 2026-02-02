@@ -18,13 +18,13 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <h1 className="sidebar-title">Tools</h1>
+        <h1 className="sidebar-title">Tools <span className="version">v1.0</span></h1>
       </div>
 
       <nav className="sidebar-nav">
         {/* Shared Tools Section */}
         <div className="shared-section">
-          <h2 className="section-title">Common Tools</h2>
+  
           <ul className="tools-list">
             {sharedTools.map((tool) => (
               <li key={tool.path}>

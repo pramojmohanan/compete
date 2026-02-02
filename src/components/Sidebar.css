@@ -21,6 +21,19 @@
   font-size: 24px;
   font-weight: 700;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.version {
+  font-size: 12px;
+  font-weight: 400;
+  color: #95a5a6;
+  background-color: #34495e;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
 }
 
 .sidebar-nav {
