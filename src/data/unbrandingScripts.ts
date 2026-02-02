@@ -75,7 +75,10 @@ export const unbrandingScripts: Record<string, string> = {
 
   observer.observe(document.body, { childList: true, subtree: true });
 
-}`,
+}
+
+// Execute the script
+ExecuteScript();`,
   chatgpt: `function ExecuteScript() {
 
   const selectorGroups = [
@@ -415,68 +418,331 @@ export const unbrandingScripts: Record<string, string> = {
 
   return "Cleanup complete";
 
-}`,
+}
+
+// Execute the script
+ExecuteScript();`,
   copilot: `function ExecuteScript() {
 
-  function removeDiv() {
+  const selectorGroups = [
 
-    const selectorsToRemove = [
-"bard-sidenav",
-".desktop-ogb-buffer",
-".side-nav-menu-button.with-pill-ui",
-'[data-test-id="bard-mode-switcher"]',
-'[aria-label^="Google Account:"]',
-'[data-test-id="pillbox"]',
-'[data-test-id="overflow-container"]',
-"input-container",
-".response-container-footer",
-".avatar-component",
-'[data-test-id="thoughts-header-button"]',
-".response-footer",
-".response-container-header",
-".avatar_primary",
-".avatar_primary_model",
-".avatar_primary_animation",
-".mat-mdc-button-touch-target",
-"[lottie-animation]"
+    {
+"name": "header",
+"selectors": [{ "selector": ".pointer-events-none.sticky", "multiple": false }],
+"removeParent": false
 
-    ];
+    },
 
-    selectorsToRemove.forEach(selector => {
+    {
+"name": "Share Buttons",
+"selectors": [
 
-      document.querySelectorAll(selector).forEach(el => el.remove());
+        { "selector": "button[title='Share message and prompt']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Message Reactions",
+"selectors": [
+
+        { "selector": "[data-testid='message-item-reactions']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Date Divider",
+"selectors": [
+
+        { "selector": "[data-testid='date-divider']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Citation Cards",
+"selectors": [
+
+        { "selector": "[data-testid='citation-cards-row']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Composer Container",
+"selectors": [
+
+        { "selector": ".relative.max-h-full.w-expanded-composer", "multiple": false }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Scroll to Top Button",
+"selectors": [
+
+        { "selector": ".relative.flex.items-center.gap-x-1\\\\.5", "multiple": true },
+
+        { "selector": "span.relative.rounded-full.bg-white\\\\/40", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Open Sidebar Button",
+"selectors": [
+
+        { "selector": "button[aria-label='Open sidebar']", "multiple": true }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "Sidebar Container",
+"selectors": [
+
+        { "selector": ".w-sidebar", "multiple": false },
+
+        { "selector": "[data-testid='sidebar-settings-button']", "multiple": false }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Sidebar Navigation",
+"selectors": [
+
+        { "selector": "[data-testid='sidebar-container']", "multiple": false },
+
+        { "selector": "[data-testid='sidebar-copilot-brand-button']", "multiple": false },
+
+        { "selector": "[data-testid='sidebar-new-conversation-button']", "multiple": false }
+
+      ],
+"removeParent": true
+
+    },
+
+    {
+"name": "Sidebar Width Container",
+"selectors": [
+
+        { "selector": "div.absolute.h-full.w-0[style*='width: 52px']", "multiple": false },
+
+        { "selector": "div.md\\\\:w-\\\\[52px\\\\]", "multiple": false }
+
+      ],
+"removeParent": false
+
+    },
+
+    {
+"name": "User Messages Background",
+"selectors": [
+
+        { "selector": "[data-content='user-message']", "multiple": true }
+
+      ],
+"removeParent": false,
+"style": {
+
+        "backgroundColor": "#f0f0f0"
+
+      }
+
+    },
+
+    {
+"name": "Main Background",
+"selectors": [
+
+        { "selector": "[data-testid='chat-page']", "multiple": false }
+
+      ],
+"removeParent": false,
+"style": {
+
+        "backgroundColor": "#ffffff"
+
+      }
+
+    },
+
+    {
+"name": "Body Background",
+"selectors": [
+
+        { "selector": "body", "multiple": false }
+
+      ],
+"removeParent": false,
+"style": {
+
+        "backgroundColor": "#ffffff"
+
+      }
+
+    }
+
+  ];
+
+  // Core logic to apply styles or remove elements
+
+  selectorGroups.forEach((group) => {
+
+    group.selectors.forEach((item) => {
+
+      if (!item) return;
+
+      const hasStyle = !!group.style;
+
+      const applyStyles = (el) => {
+
+        if (hasStyle) {
+
+          const { parent, ...ownStyles } = group.style;
+
+          Object.entries(ownStyles).forEach(([key, value]) => {
+
+            el.style[key] = value;
+
+          });
+
+          if (parent && el.parentElement) {
+
+            Object.entries(parent).forEach(([key, value]) => {
+
+              el.parentElement.style[key] = value;
+
+            });
+
+          }
+
+        }
+
+      };
+
+      if (item.multiple) {
+
+        const elements = document.querySelectorAll(item.selector);
+
+        console.log(\`Found \${elements.length} elements for: \${item.selector}\`);
+
+        elements.forEach((el) => {
+
+          if (hasStyle) {
+
+            applyStyles(el);
+
+          } else if (group.removeParent && el.parentElement) {
+
+            el.parentElement.remove();
+
+          } else {
+
+            el.remove();
+
+          }
+
+        });
+
+      } else {
+
+        const el = document.querySelector(item.selector);
+
+        if (!el) {
+
+          console.log(\`No element found for: \${item.selector}\`);
+
+          return;
+
+        }
+
+        if (hasStyle) {
+
+          applyStyles(el);
+
+        } else if (group.removeParent && el.parentElement) {
+
+          el.parentElement.remove();
+
+        } else {
+
+          el.remove();
+
+        }
+
+      }
 
     });
 
-    document.querySelectorAll(".user-query-bubble-with-background").forEach(el => {
+  });
 
-      el.style.backgroundColor = "#E9E9E9";
+  // Remove empty <div>s
+
+  let removed;
+
+  let iterations = 0;
+
+  do {
+
+    removed = false;
+
+    const allDivs = document.querySelectorAll("div");
+
+    allDivs.forEach((div) => {
+
+      const isEmpty = [...div.childNodes].every((node) => {
+
+        return (
+
+          (node.nodeType === Node.TEXT_NODE && node.textContent.trim() === "") ||
+
+          node.nodeType === Node.COMMENT_NODE
+
+        );
+
+      });
+
+      if (isEmpty) {
+
+        div.remove();
+
+        removed = true;
+
+      }
 
     });
 
-    document.querySelectorAll("button.button.ng-star-inserted").forEach(el => {
+    iterations++;
 
-      el.style.backgroundColor = "#E9E9E9";
+    if (iterations > 100) break; // Safety limit
 
-    });
+  } while (removed);
 
-    document.querySelectorAll('button[data-test-id="view-report-button"]').forEach(el => {
+  console.log("Cleanup complete");
 
-      el.style.backgroundColor = "#E9E9E9";
+  return "Cleanup complete";
 
-    });
+}
 
-    const promo = document.querySelector("contextual-discovery-response-promotion");
-
-    if (promo) promo.remove();
-
-  }
-
-  setTimeout(removeDiv, 1000);
-
-  const observer = new MutationObserver(() => removeDiv());
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
-}`
+// Execute the script
+ExecuteScript();`
 };

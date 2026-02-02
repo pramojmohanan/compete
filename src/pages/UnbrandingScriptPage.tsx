@@ -13,17 +13,40 @@ function UnbrandingScriptPage({ appName }: UnbrandingScriptPageProps) {
   const platformScript = unbrandingScripts[appKey] || '';
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    if (platformScript) {
-      navigator.clipboard
-        .writeText(platformScript)
-        .then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        })
-        .catch((err) => {
-          console.error('Failed to copy:', err);
-        });
+  const handleCopy = async () => {
+    if (!platformScript) return;
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(platformScript);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        // Fallback for browsers without Clipboard API
+        const textArea = document.createElement('textarea');
+        textArea.value = platformScript;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (error) {
+      console.error('Failed to copy:', error);
+      // Fallback copy method
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = platformScript;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (fallbackError) {
+        console.error('Fallback copy also failed:', fallbackError);
+      }
     }
   };
 
