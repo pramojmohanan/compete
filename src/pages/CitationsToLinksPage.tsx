@@ -95,7 +95,7 @@ function CitationsToLinksPage({ appName: _appName }: CitationsToLinksPageProps) 
 
         // Use unified extraction function for all platforms
         const links = extractCitations(dom);
-        const converted = links.join('\n');
+        const converted = links.join('##NEWLINE##');
         setOutput(converted);
       } catch (error) {
         console.error('Conversion error:', error);
