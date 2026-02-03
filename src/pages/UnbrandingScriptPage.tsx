@@ -6,9 +6,10 @@ import '../styles/unbranding.css';
 
 interface UnbrandingScriptPageProps {
   appName: string;
+  code?: string;
 }
 
-function UnbrandingScriptPage({ appName }: UnbrandingScriptPageProps) {
+function UnbrandingScriptPage({ appName, code }: UnbrandingScriptPageProps) {
   const appKey = appName.toLowerCase();
   const platformScript = unbrandingScripts[appKey] || '';
   const [copied, setCopied] = useState(false);
@@ -53,14 +54,14 @@ function UnbrandingScriptPage({ appName }: UnbrandingScriptPageProps) {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1>Unbranding Script - {appName}</h1>
-        <p className="page-description">Copy the unbranding script for {appName}</p>
+        <h1>{code ? code.toUpperCase() : 'Cleaner'}</h1>
+        <p className="page-description">Copy the script and run in your browser console</p>
       </div>
 
       <div className="page-content">
         <div className="textarea-group">
           <div className="label-with-button">
-            <label htmlFor="script">Script for {appName}:</label>
+            <label htmlFor="script">Script:</label>
             {platformScript && (
               <button 
                 onClick={handleCopy} 

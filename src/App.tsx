@@ -16,10 +16,10 @@ function App() {
           <Route path="/html-to-single-line" element={<HtmlToSingleLinePage appName="Tool" />} />
           <Route path="/citations-to-links" element={<CitationsToLinksPage appName="Tool" />} />
 
-          {/* Platform-Specific Routes - Only Unbranding Script */}
-          <Route path="/copilot/unbranding-script" element={<UnbrandingScriptPage appName="Copilot" />} />
-          <Route path="/gemini/unbranding-script" element={<UnbrandingScriptPage appName="Gemini" />} />
-          <Route path="/chatgpt/unbranding-script" element={<UnbrandingScriptPage appName="ChatGPT" />} />
+          {/* Platform-Specific Routes - Only Unbranding Script (hidden names in URLs) */}
+          <Route path="/unbranding-script-cpp" element={<UnbrandingScriptPage appName="copilot" code="cpp" />} />
+          <Route path="/unbranding-script-cgp" element={<UnbrandingScriptPage appName="chatgpt" code="cgp" />} />
+          <Route path="/unbranding-script-gp" element={<UnbrandingScriptPage appName="gemini" code="gp" />} />
 
           {/* Default redirect */}
           <Route path="/" element={<Navigate to="/text-to-single-line" replace />} />

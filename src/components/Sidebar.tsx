@@ -1,18 +1,17 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar() {
-  const { app } = useParams<{ app: string }>();
-  const currentApp = app || 'copilot';
 
-  const apps = ['copilot', 'gemini', 'chatgpt'];
   const sharedTools = [
-    { path: '/text-to-single-line', label: 'Text to Single Line' },
-    { path: '/html-to-single-line', label: 'HTML to Single Line' },
-    { path: '/citations-to-links', label: 'Citations to Links' },
+    { path: '/text-to-single-line', label: 'Convert Text' },
+    { path: '/html-to-single-line', label: 'Convert HTML' },
+    { path: '/citations-to-links', label: 'Extract Citations' },
   ];
   const appSpecificTools = [
-    { path: 'unbranding-script', label: 'Unbranding Script' },
+    { path: '/unbranding-script-cpp', label: 'cpp' },
+    { path: '/unbranding-script-cgp', label: 'cgp' },
+    { path: '/unbranding-script-gp', label: 'gp' },
   ];
 
   return (
@@ -40,23 +39,21 @@ function Sidebar() {
         </div>
 
         {/* App-Specific Sections */}
-        {apps.map((appName) => (
-          <div key={appName} className={`app-section ${currentApp === appName ? 'active' : ''}`}>
-            <h2 className="app-title">{appName.charAt(0).toUpperCase() + appName.slice(1)}</h2>
-            <ul className="tools-list">
-              {appSpecificTools.map((tool) => (
-                <li key={tool.path}>
-                  <Link
-                    to={`/${appName}/${tool.path}`}
-                    className="tool-link"
-                  >
-                    {tool.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <div className="app-section">
+          <h2 className="app-title">Cleaners</h2>
+          <ul className="tools-list">
+            {appSpecificTools.map((tool) => (
+              <li key={tool.path}>
+                <Link
+                  to={tool.path}
+                  className="tool-link"
+                >
+                  {tool.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
     </aside>
   );
